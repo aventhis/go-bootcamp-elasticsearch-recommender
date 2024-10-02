@@ -1,7 +1,7 @@
 package data
 
 type Restaurant struct {
-	Id       string `json:"id"`
+	ID       int64  `json:"id"`
 	Name     string `json:"name"`
 	Address  string `json:"address"`
 	Phone    string `json:"phone"`
