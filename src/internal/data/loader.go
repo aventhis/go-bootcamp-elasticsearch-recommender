@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"encoding/csv"
 	"errors"
+	"fmt"
 	"io"
 	"os"
 	"strconv"
@@ -32,19 +33,22 @@ func LoadRestaurant(filePath string) ([]Restaurant, error) {
 			break
 		}
 		if err != nil {
-			return nil, err
+			fmt.Printf("Ошибка чтения строки: %v\n", err)
+			continue
 		}
 		id, err := strconv.ParseInt(record[0], 10, 64)
 		if err != nil {
-			// Пропускаем строки с неверным ID
+			fmt.Printf("Ошибка парсинга ID: %v\n", err)
 			continue
 		}
 		lat, err := strconv.ParseFloat(record[4], 64)
 		if err != nil {
+			fmt.Printf("Ошибка парсинга широты: %v\n", err)
 			continue
 		}
 		lon, err := strconv.ParseFloat(record[5], 64)
 		if err != nil {
+			fmt.Printf("Ошибка парсинга долготы: %v\n", err)
 			continue
 		}
 
