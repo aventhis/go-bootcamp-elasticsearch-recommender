@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/aventhis/go-bootcamp-elasticsearch-recommender/src/internal/data"
 	elasticsearch_ "github.com/aventhis/go-bootcamp-elasticsearch-recommender/src/internal/elasticsearch"
 	"github.com/elastic/go-elasticsearch/v8"
@@ -21,7 +20,13 @@ func main() {
 
 	filepath := "../internal/data/data.csv"
 	restaurants, err := data.LoadRestaurant(filepath)
-	//fmt.Println(restaurants[0])
-	fmt.Println(restaurants[1])
-	fmt.Println("the end")
+	if err != nil {
+		log.Fatalf("Ошибка загрузки данных из файла: %s\n", err)
+	}
+	err = elasticsearch_.BulkInsert(es, restaurants)
+	if err != nil {
+		log.Fatalf("Ошибка при выполнении Bulk-запроса: %s", err)
+	}
+
+	log.Println("Данные успешно загружены в Elasticsearch")
 }

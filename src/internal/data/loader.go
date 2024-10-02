@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"encoding/csv"
 	"errors"
-	"fmt"
 	"io"
 	"os"
 	"strconv"
@@ -33,7 +32,6 @@ func LoadRestaurant(filePath string) ([]Restaurant, error) {
 			break
 		}
 		if err != nil {
-			fmt.Printf("Ошибка чтения строки: %v\n", err)
 			continue
 		}
 		id, _ := strconv.ParseInt(record[0], 10, 64)
@@ -53,12 +51,4 @@ func LoadRestaurant(filePath string) ([]Restaurant, error) {
 	}
 
 	return restaurants, nil
-
-}
-
-func BulkInsert(restaurants []Restaurant) error {
-	for i, restaurant := range restaurants {
-		//{ "index": { "_index": "places", "_id": "1" } }
-		meta := []byte(fmt.Sprintf(`{ "index": { "_index": "places", "_id": "%d" } }%s`), i+1, "\n"))
-	}
 }
