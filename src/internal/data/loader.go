@@ -18,7 +18,7 @@ func LoadRestaurant(filePath string) ([]Restaurant, error) {
 	defer file.Close()
 
 	reader := csv.NewReader(bufio.NewReader(file))
-	reader.Comma = '\t' // разделитель поля - табуляция
+	reader.Comma = '\t'
 
 	// Пропуск заголовка
 	if _, err = reader.Read(); err != nil {
@@ -36,21 +36,9 @@ func LoadRestaurant(filePath string) ([]Restaurant, error) {
 			fmt.Printf("Ошибка чтения строки: %v\n", err)
 			continue
 		}
-		id, err := strconv.ParseInt(record[0], 10, 64)
-		if err != nil {
-			fmt.Printf("Ошибка парсинга ID: %v\n", err)
-			continue
-		}
-		lat, err := strconv.ParseFloat(record[4], 64)
-		if err != nil {
-			fmt.Printf("Ошибка парсинга широты: %v\n", err)
-			continue
-		}
-		lon, err := strconv.ParseFloat(record[5], 64)
-		if err != nil {
-			fmt.Printf("Ошибка парсинга долготы: %v\n", err)
-			continue
-		}
+		id, _ := strconv.ParseInt(record[0], 10, 64)
+		lat, _ := strconv.ParseFloat(record[4], 64)
+		lon, _ := strconv.ParseFloat(record[5], 64)
 
 		restaurant := Restaurant{
 			ID:      id,
@@ -62,9 +50,15 @@ func LoadRestaurant(filePath string) ([]Restaurant, error) {
 		restaurant.Location.Lon = lon
 
 		restaurants = append(restaurants, restaurant)
-
 	}
 
 	return restaurants, nil
 
+}
+
+func BulkInsert(restaurants []Restaurant) error {
+	for i, restaurant := range restaurants {
+		//{ "index": { "_index": "places", "_id": "1" } }
+		meta := []byte(fmt.Sprintf(`{ "index": { "_index": "places", "_id": "%d" } }%s`), i+1, "\n"))
+	}
 }

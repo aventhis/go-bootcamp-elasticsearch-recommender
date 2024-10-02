@@ -22,6 +22,6 @@ func main() {
 	filepath := "../internal/data/data.csv"
 	restaurants, err := data.LoadRestaurant(filepath)
 	//fmt.Println(restaurants[0])
-	fmt.Println(restaurants[0])
+	fmt.Println(restaurants[1])
 	fmt.Println("the end")
 }
