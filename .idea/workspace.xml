@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="615302ba-b7bc-4deb-9683-d9a7174425fa" name="Changes" comment="refactor">
-      <change afterPath="$PROJECT_DIR$/src/internal/db/store.go" afterDir="false" />
+    <list default="true" id="615302ba-b7bc-4deb-9683-d9a7174425fa" name="Changes" comment="add store / rename types restaurant for place">
+      <change afterPath="$PROJECT_DIR$/src/internal/db/elasticsearchstore.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/internal/data/loader.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/internal/data/loader.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/internal/data/restaurant.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/internal/types/place.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/internal/db/bulk.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/internal/db/bulk.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +106,8 @@
     <MESSAGE value="add client.go" />
     <MESSAGE value="change dir for task01" />
     <MESSAGE value="refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor" />
+    <MESSAGE value="add store / rename types restaurant for place" />
+    <option name="LAST_COMMIT_MESSAGE" value="add store / rename types restaurant for place" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
