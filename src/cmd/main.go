@@ -3,14 +3,13 @@ package main
 import (
 	"github.com/aventhis/go-bootcamp-elasticsearch-recommender/src/internal/data"
 	elasticsearch_ "github.com/aventhis/go-bootcamp-elasticsearch-recommender/src/internal/elasticsearch"
-	"github.com/elastic/go-elasticsearch/v8"
 	"log"
 )
 
 func main() {
-	es, err := elasticsearch.NewDefaultClient()
+	es, err := elasticsearch_.NewClient()
 	if err != nil {
-		log.Fatalf("Ошибка при создании клиента Elasticsearch: %s\n", err)
+		log.Fatalf("Error creating Elasticsearch client: %s", err)
 	}
 
 	err = elasticsearch_.CreateIndex(es)
