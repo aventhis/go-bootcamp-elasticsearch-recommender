@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/aventhis/go-bootcamp-elasticsearch-recommender/internal/types"
 	"github.com/elastic/go-elasticsearch/v8"
+	"log"
 	"strings"
 )
 
@@ -57,7 +58,47 @@ func (es *ElasticsearchStore) GetPlaces(limit int, offset int) ([]types.Place, i
 		return nil, 0, fmt.Errorf("ошибка декодирования ответа от Elasticsearch: %w", err)
 	}
 
-	var places []types.Place
+	// Извлекаем "hits" и проверяем, является ли оно картой
+	hits, ok := response["hits"].(map[string]interface{})
+	if !ok {
+		log.Fatal("Ошибка: 'hits' не является map[string]interface{}")
+	}
 
-	return nil, 0, nil
+	// Извлекаем "total" из hits и проверяем, является ли оно картой
+	total, ok := hits["total"].(map[string]interface{})
+	if !ok {
+		log.Fatal("Ошибка: 'total' не является map[string]interface{}")
+	}
+
+	value, ok := total["value"].(float64)
+	if !ok {
+		// Обработка ошибки, если приведение типа не удалось
+		log.Fatal("Ошибка: значение 'value' не является float64")
+	}
+
+	totalHits := int(value)
+
+	// Получаем массив документов из "hits"
+	hitsArray, ok := hits["hits"].([]interface{})
+	if !ok {
+		log.Fatal("Ошибка: 'hits' не является []interface{}")
+	}
+
+	var places []types.Place
+	for _, hit := range hitsArray {
+		var place types.Place
+		// Извлекаем "_source" из текущего документа
+		source := hit.(map[string]interface{})["_source"]
+		// Сериализуем карту "_source" в JSON-байты
+		sourceBytes, err := json.Marshal(source)
+		if err != nil {
+			log.Println("Ошибка при сериализации '_source':", err)
+			continue
+		}
+		if err := json.Unmarshal(sourceBytes, &place); err != nil {
+			continue
+		}
+		places = append(places, place)
+	}
+	return places, totalHits, nil
 }
