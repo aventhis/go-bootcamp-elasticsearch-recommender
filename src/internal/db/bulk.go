@@ -3,7 +3,7 @@ package db
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/aventhis/go-bootcamp-elasticsearch-recommender/src/internal/data"
+	"github.com/aventhis/go-bootcamp-elasticsearch-recommender/internal/data"
 	"github.com/elastic/go-elasticsearch/v8"
 	"log"
 	"strings"

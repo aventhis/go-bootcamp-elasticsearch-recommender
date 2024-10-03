@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/aventhis/go-bootcamp-elasticsearch-recommender/src/internal/data"
-	"github.com/aventhis/go-bootcamp-elasticsearch-recommender/src/internal/db"
+	"github.com/aventhis/go-bootcamp-elasticsearch-recommender/internal/data"
+	"github.com/aventhis/go-bootcamp-elasticsearch-recommender/internal/db"
 	"log"
 )
 
@@ -17,7 +17,7 @@ func main() {
 		log.Fatalf("Ошибка при создании индекса: %s\n", err)
 	}
 
-	restaurants, err := data.LoadRestaurant("../internal/data/data.csv")
+	restaurants, err := data.LoadRestaurant("../../internal/data/data.csv")
 	if err != nil {
 		log.Fatalf("Ошибка загрузки данных из файла: %s\n", err)
 	}
