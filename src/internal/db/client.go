@@ -1,11 +1,11 @@
-package elasticsearch_
+package db
 
 import (
 	"github.com/elastic/go-elasticsearch/v8"
 	"log"
 )
 
-func NewClient() (*elasticsearch.Client, error) {
+func NewElasticsearchClient() (*elasticsearch.Client, error) {
 	ctg := elasticsearch.Config{
 		Addresses: []string{
 			"http://localhost:9200",
