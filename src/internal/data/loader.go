@@ -4,12 +4,13 @@ import (
 	"bufio"
 	"encoding/csv"
 	"errors"
+	"github.com/aventhis/go-bootcamp-elasticsearch-recommender/internal/types"
 	"io"
 	"os"
 	"strconv"
 )
 
-func LoadRestaurant(filePath string) ([]Restaurant, error) {
+func LoadRestaurant(filePath string) ([]types.Place, error) {
 	file, err := os.Open(filePath)
 	if err != nil {
 		return nil, errors.New("ошибка при открытии файла: " + err.Error())
@@ -24,7 +25,7 @@ func LoadRestaurant(filePath string) ([]Restaurant, error) {
 		return nil, err
 	}
 
-	var restaurants []Restaurant
+	var restaurants []types.Place
 
 	for {
 		record, err := reader.Read()
@@ -38,7 +39,7 @@ func LoadRestaurant(filePath string) ([]Restaurant, error) {
 		lat, _ := strconv.ParseFloat(record[5], 64)
 		lon, _ := strconv.ParseFloat(record[4], 64)
 
-		restaurant := Restaurant{
+		restaurant := types.Place{
 			ID:      id + 1,
 			Name:    record[1],
 			Address: record[2],

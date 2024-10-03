@@ -3,13 +3,13 @@ package db
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/aventhis/go-bootcamp-elasticsearch-recommender/internal/data"
+	"github.com/aventhis/go-bootcamp-elasticsearch-recommender/internal/types"
 	"github.com/elastic/go-elasticsearch/v8"
 	"log"
 	"strings"
 )
 
-func BulkInsert(es *elasticsearch.Client, restaurants []data.Restaurant) error {
+func BulkInsert(es *elasticsearch.Client, restaurants []types.Place) error {
 	// Начинаем формировать Bulk-запрос для загрузки данных
 	var bulkRequest strings.Builder
 	for _, restaurant := range restaurants {

@@ -1,6 +1,6 @@
-package data
+package types
 
-type Restaurant struct {
+type Place struct {
 	ID       int64  `json:"id"`
 	Name     string `json:"name"`
 	Address  string `json:"address"`
