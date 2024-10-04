@@ -1,10 +1,11 @@
 package main
 
 import (
-	"fmt"
 	"github.com/aventhis/go-bootcamp-elasticsearch-recommender/internal/data"
 	"github.com/aventhis/go-bootcamp-elasticsearch-recommender/internal/db"
+	"github.com/aventhis/go-bootcamp-elasticsearch-recommender/internal/handlers"
 	"log"
+	"net/http"
 )
 
 func main() {
@@ -36,7 +37,19 @@ func main() {
 
 	// Создаем хранилище
 	store := db.NewElasticsearchStore(esClient)
-	fmt.Println(store)
+
+	// Запускаем HTTP-сервер на порту 8888
+	log.Println("Сервер запущен на порту 8888...")
+
+	handler := handlers.NewHandler(store)
+
+	http.HandleFunc("/", handler.ServeHTTP)
+
+	log.Println("Сервер запущен на http://localhost:8888")
+	if err = http.ListenAndServe(":8888", nil); err != nil {
+		log.Fatalf("Ошибка при запуске сервера: %s", err)
+	}
+
 	//// Проверка работы функции GetPlaces
 	//limit := 10 // Лимит количества возвращаемых записей
 	//offset := 2 // Смещение
