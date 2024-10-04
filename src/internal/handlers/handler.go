@@ -3,6 +3,7 @@ package handlers
 import (
 	"github.com/aventhis/go-bootcamp-elasticsearch-recommender/internal/db"
 	"net/http"
+	"strconv"
 )
 
 type Handler struct {
@@ -13,6 +14,17 @@ func NewHandler(store db.Store) *Handler {
 	return &Handler{store: store}
 }
 
-func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) IndexHandler(w http.ResponseWriter, r *http.Request) {
+	// Получаем параметр "page" из запроса
+	pageStr := r.URL.Query().Get("page")
 
+	if pageStr == "" {
+		pageStr = "1"
+	}
+
+	page, err := strconv.Atoi(pageStr)
+	if err != nil || page < 1 {
+
+		return
+	}
 }

@@ -32,38 +32,19 @@ func main() {
 	if err != nil {
 		log.Fatalf("Ошибка при выполнении Bulk-запроса: %s", err)
 	}
-
 	log.Println("Данные успешно загружены в Elasticsearch")
 
 	// Создаем хранилище
 	store := db.NewElasticsearchStore(esClient)
 
-	// Запускаем HTTP-сервер на порту 8888
-	log.Println("Сервер запущен на порту 8888...")
-
+	// Создаем обработчики
 	handler := handlers.NewHandler(store)
 
-	http.HandleFunc("/", handler.ServeHTTP)
+	// Регистрируем маршруты
+	http.HandleFunc("/", handler.IndexHandler)
 
 	log.Println("Сервер запущен на http://localhost:8888")
 	if err = http.ListenAndServe(":8888", nil); err != nil {
 		log.Fatalf("Ошибка при запуске сервера: %s", err)
 	}
-
-	//// Проверка работы функции GetPlaces
-	//limit := 10 // Лимит количества возвращаемых записей
-	//offset := 2 // Смещение
-	//places, totalHits, err := store.GetPlaces(limit, offset)
-	//if err != nil {
-	//	log.Fatalf("Ошибка при получении мест из Elasticsearch: %s", err)
-	//}
-	//
-	//// Выводим общее количество найденных документов
-	//fmt.Printf("Найдено документов: %d\n", totalHits)
-	//
-	//// Выводим результаты
-	//for i, place := range places {
-	//	fmt.Printf("Место %d: %+v\n", i+1, place)
-	//}
-
 }
