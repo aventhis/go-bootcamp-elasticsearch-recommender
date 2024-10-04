@@ -10,7 +10,7 @@ import (
 	"strconv"
 )
 
-func LoadRestaurant(filePath string) ([]types.Place, error) {
+func LoadPlaces(filePath string) ([]types.Place, error) {
 	file, err := os.Open(filePath)
 	if err != nil {
 		return nil, errors.New("ошибка при открытии файла: " + err.Error())
@@ -25,7 +25,7 @@ func LoadRestaurant(filePath string) ([]types.Place, error) {
 		return nil, err
 	}
 
-	var restaurants []types.Place
+	var places []types.Place
 
 	for {
 		record, err := reader.Read()
@@ -39,17 +39,17 @@ func LoadRestaurant(filePath string) ([]types.Place, error) {
 		lat, _ := strconv.ParseFloat(record[5], 64)
 		lon, _ := strconv.ParseFloat(record[4], 64)
 
-		restaurant := types.Place{
+		place := types.Place{
 			ID:      id + 1,
 			Name:    record[1],
 			Address: record[2],
 			Phone:   record[3],
 		}
-		restaurant.Location.Lat = lat
-		restaurant.Location.Lon = lon
+		place.Location.Lat = lat
+		place.Location.Lon = lon
 
-		restaurants = append(restaurants, restaurant)
+		places = append(places, place)
 	}
 
-	return restaurants, nil
+	return places, nil
 }
