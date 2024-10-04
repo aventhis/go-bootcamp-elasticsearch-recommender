@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="615302ba-b7bc-4deb-9683-d9a7174425fa" name="Changes" comment="add handler">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/internal/handlers/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/internal/handlers/handler.go" afterDir="false" />
-    </list>
+    <list default="true" id="615302ba-b7bc-4deb-9683-d9a7174425fa" name="Changes" comment="add handler, IndexHandler" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -114,7 +110,8 @@
     <MESSAGE value="add main for server and load_data" />
     <MESSAGE value="change restaurants for places" />
     <MESSAGE value="add handler" />
-    <option name="LAST_COMMIT_MESSAGE" value="add handler" />
+    <MESSAGE value="add handler, IndexHandler" />
+    <option name="LAST_COMMIT_MESSAGE" value="add handler, IndexHandler" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

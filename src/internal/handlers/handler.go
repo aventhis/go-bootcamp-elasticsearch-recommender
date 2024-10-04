@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"github.com/aventhis/go-bootcamp-elasticsearch-recommender/internal/db"
 	"net/http"
 	"strconv"
@@ -24,7 +25,7 @@ func (h *Handler) IndexHandler(w http.ResponseWriter, r *http.Request) {
 
 	page, err := strconv.Atoi(pageStr)
 	if err != nil || page < 1 {
-
+		http.Error(w, fmt.Sprintf("Invalid 'page' value: '%s'", pageStr), http.StatusBadRequest)
 		return
 	}
 }
