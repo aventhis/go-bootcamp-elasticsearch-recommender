@@ -14,17 +14,8 @@ type ElasticsearchStore struct {
 	client *elasticsearch.Client
 }
 
-func NewElasticsearchStore() (*ElasticsearchStore, error) {
-	ctg := elasticsearch.Config{
-		Addresses: []string{
-			"http://localhost:9200",
-		},
-	}
-	es, err := elasticsearch.NewClient(ctg)
-	if err != nil {
-		return nil, err
-	}
-	return &ElasticsearchStore{client: es}, nil
+func NewElasticsearchStore(client *elasticsearch.Client) *ElasticsearchStore {
+	return &ElasticsearchStore{client: client}
 }
 
 func (es *ElasticsearchStore) GetPlaces(limit int, offset int) ([]types.Place, int, error) {
