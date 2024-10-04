@@ -9,14 +9,14 @@ import (
 	"strings"
 )
 
-func BulkInsert(es *elasticsearch.Client, restaurants []types.Place) error {
+func BulkInsert(es *elasticsearch.Client, places []types.Place) error {
 	// Начинаем формировать Bulk-запрос для загрузки данных
 	var bulkRequest strings.Builder
-	for _, restaurant := range restaurants {
+	for _, place := range places {
 		//{ "index": { "_index": "places", "_id": "1" } }
 		//{ "name": "Cafe 123", "address": "123 Main St", "location": { "lat": 40.73, "lon": -73.93 } }
-		meta := fmt.Sprintf(`{ "index" : { "_index" : "places", "_id" : "%d" } }%s`, restaurant.ID, "\n")
-		dataJSON, err := json.Marshal(restaurant)
+		meta := fmt.Sprintf(`{ "index" : { "_index" : "places", "_id" : "%d" } }%s`, place.ID, "\n")
+		dataJSON, err := json.Marshal(place)
 		if err != nil {
 			return fmt.Errorf("ошибка при сериализации данных: %s", err)
 		}

@@ -22,6 +22,6 @@ func NewElasticsearchClient() (*elasticsearch.Client, error) {
 		return nil, err
 	}
 	defer res.Body.Close()
-	log.Println("Подключение к Elasticsearch")
+	log.Println("Подключено к Elasticsearch")
 	return es, nil
 }

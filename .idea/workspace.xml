@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="615302ba-b7bc-4deb-9683-d9a7174425fa" name="Changes" comment="add main for server and load_data">
-      <change afterPath="$PROJECT_DIR$/src/internal/handlers/file.go" afterDir="false" />
+    <list default="true" id="615302ba-b7bc-4deb-9683-d9a7174425fa" name="Changes" comment="change restaurants for places">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/internal/data/loader.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/internal/data/loader.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/internal/db/bulk.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/internal/db/bulk.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/internal/db/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/internal/db/client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/internal/db/elasticsearch.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/internal/db/elasticsearch.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/internal/db/store.go" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +114,8 @@
     <MESSAGE value="add GetPlaces" />
     <MESSAGE value="add main to server" />
     <MESSAGE value="add main for server and load_data" />
-    <option name="LAST_COMMIT_MESSAGE" value="add main for server and load_data" />
+    <MESSAGE value="change restaurants for places" />
+    <option name="LAST_COMMIT_MESSAGE" value="change restaurants for places" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
