@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Places</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <h1>{{.Title}}</h1>  <!-- Этот заголовок отображается на самой странице -->
+    <h5>Total: {{.Total}}</h5> <!-- Общее количество ресторанов -->
+
+    <ul>
+        {{range .Places}}
+            <li>
+                <div>{{.Name}}</div> <!-- Название ресторана -->
+                <div>{{.Address}}</div> <!-- Адрес ресторана -->
+                <div>{{.Phone}}</div> <!-- Телефон ресторана -->
+            </li>
+    </ul>
+
+    <div>
+        {{if .PrevPage}} <!-- Ссылка на предыдущую страницу, если есть -->
+            <a href="/?page={{.PrevPage}}">Previous</a>
+        {{eng}}
+
+        <span>Page {{.CurrentPage}} of {{.LastPage}}</span>  <!-- Текущая и последняя страницы -->
+
+        {{if .NextPage}} <!-- Ссылка на предыдущую страницу, если есть -->
+        <a href="/?page={{.NextPage}}">Next</a>
+        {{eng}}
+    </div>
+</body>
+</html>

@@ -23,6 +23,8 @@ func NewElasticsearchStore(client *elasticsearch.Client) *ElasticsearchStore {
 	return &ElasticsearchStore{client: client}
 }
 
+// limit — это количество записей
+// offset — это смещение от начала списка записей
 func (es *ElasticsearchStore) GetPlaces(limit int, offset int) ([]types.Place, int, error) {
 	// Формируем запрос к Elasticsearch с использованием параметров `limit` и `offset`
 	query := fmt.Sprintf(`{
