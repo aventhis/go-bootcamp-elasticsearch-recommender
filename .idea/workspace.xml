@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="615302ba-b7bc-4deb-9683-d9a7174425fa" name="Changes" comment="add error in atoi - page - in IndexHandler">
-      <change afterPath="$PROJECT_DIR$/src/internal/data/index.html" afterDir="false" />
+    <list default="true" id="615302ba-b7bc-4deb-9683-d9a7174425fa" name="Changes" comment="add change to IndexHandler">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/internal/db/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/internal/db/client.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/internal/db/elasticsearch.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/internal/db/elasticsearch.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/internal/data/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/internal/data/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/internal/handlers/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/internal/handlers/handler.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -118,7 +116,8 @@
     <MESSAGE value="add handler" />
     <MESSAGE value="add handler, IndexHandler" />
     <MESSAGE value="add error in atoi - page - in IndexHandler" />
-    <option name="LAST_COMMIT_MESSAGE" value="add error in atoi - page - in IndexHandler" />
+    <MESSAGE value="add change to IndexHandler" />
+    <option name="LAST_COMMIT_MESSAGE" value="add change to IndexHandler" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

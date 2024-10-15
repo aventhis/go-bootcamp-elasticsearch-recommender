@@ -17,18 +17,19 @@
                 <div>{{.Address}}</div> <!-- Адрес ресторана -->
                 <div>{{.Phone}}</div> <!-- Телефон ресторана -->
             </li>
+        {{end}}
     </ul>
 
     <div>
         {{if .PrevPage}} <!-- Ссылка на предыдущую страницу, если есть -->
             <a href="/?page={{.PrevPage}}">Previous</a>
-        {{eng}}
+        {{end}}
 
         <span>Page {{.CurrentPage}} of {{.LastPage}}</span>  <!-- Текущая и последняя страницы -->
 
         {{if .NextPage}} <!-- Ссылка на предыдущую страницу, если есть -->
         <a href="/?page={{.NextPage}}">Next</a>
-        {{eng}}
+        {{end}}
     </div>
 </body>
 </html>

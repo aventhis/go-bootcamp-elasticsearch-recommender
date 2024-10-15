@@ -34,10 +34,25 @@ func (h *Handler) IndexHandler(w http.ResponseWriter, r *http.Request) {
 	limit := 10
 	offset := (page - 1) * limit
 
-	// Получаем данные из хранилища
-	places, total, err := h.store.GetPlaces(limit, offset)
+	// Получаем общее количество записей для расчета страниц
+	_, total, err := h.store.GetPlaces(1, 0) // Делаем запрос для получения только общего числа записей
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Ошибка получения данных: %s", err), http.StatusInternalServerError)
+		return
+	}
+
+	// Вычисляем последнюю допустимую страницу
+	lastPage := (total + limit - 1) / limit
+	if page > lastPage {
+		http.Error(w, fmt.Sprintf("Некорректное значение 'page': '%s'", pageStr), http.StatusBadRequest)
+		return
+	}
+
+	// Теперь получаем данные для текущей страницы
+	places, _, err := h.store.GetPlaces(limit, offset)
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Ошибка получения данных: %s", err), http.StatusInternalServerError)
+		return
 	}
 
 	// Формируем HTML-ответ
@@ -56,7 +71,7 @@ func (h *Handler) IndexHandler(w http.ResponseWriter, r *http.Request) {
 		CurrentPage: page,
 		NextPage:    page + 1,
 		PrevPage:    page - 1,
-		LastPage:    (total + limit - 1) / limit,
+		LastPage:    lastPage,
 	}
 
 	tmpl, err := template.ParseFiles("../internal/data/index.html")
@@ -70,3 +85,5 @@ func (h *Handler) IndexHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, fmt.Sprintf("Ошибка рендеринга: %s", err), http.StatusInternalServerError)
 	}
 }
+
+// убрать ссылку на next
