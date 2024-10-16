@@ -43,6 +43,7 @@ func main() {
 	// Регистрируем маршруты
 	http.HandleFunc("/", handler.IndexHandler)
 	http.HandleFunc("/api/places", handler.JSONHandler)
+	http.HandleFunc("/api/recommend", handler.RecommendHandler)
 
 	log.Println("Сервер запущен на http://localhost:8888")
 	if err = http.ListenAndServe(":8888", nil); err != nil {
