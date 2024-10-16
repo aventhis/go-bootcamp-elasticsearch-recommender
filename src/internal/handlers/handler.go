@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/aventhis/go-bootcamp-elasticsearch-recommender/internal/db"
 	"github.com/aventhis/go-bootcamp-elasticsearch-recommender/internal/types"
@@ -128,37 +129,35 @@ func (h *Handler) JSONHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Формируем HTML-ответ
+	// Формируем JSON-ответ
 	data := struct {
-		Title       string
-		Places      []types.Place
-		Total       int
-		CurrentPage int
-		NextPage    int
-		PrevPage    int
-		LastPage    int
+		Name     string        `json:"name"`
+		Total    int           `json:"total"`
+		Places   []types.Place `json:"places"`
+		PrevPage int           `json:"prev_page"`
+		NextPage int           `json:"next_page"`
+		LastPage int           `json:"last_page"`
 	}{
-		Title:       "Список ресторанов",
-		Places:      places,
-		Total:       total,
-		CurrentPage: page,
-		NextPage:    page + 1,
-		PrevPage:    page - 1,
-		LastPage:    lastPage,
+		Name:     "Places",
+		Total:    total,
+		Places:   places,
+		LastPage: (total + limit - 1) / limit,
 	}
 
-	if page == lastPage {
-		data.NextPage = 0
+	if page > 1 {
+		data.PrevPage = page - 1
 	}
 
-	tmpl, err := template.ParseFiles("../internal/data/index.html")
+	if page < data.LastPage {
+		data.NextPage = page + 1
+	}
+
+	// Устанавливаем заголовок Content-Type для ответа в формате JSON
+	w.Header().Set("Content-Type", "application/json")
+
+	// Отправляем JSON-ответ
+	err = json.NewEncoder(w).Encode(data)
 	if err != nil {
-		http.Error(w, fmt.Sprintf("Ошибка загрузки шаблона: %s", err), http.StatusInternalServerError)
-		return
-	}
-
-	err = tmpl.Execute(w, data)
-	if err != nil {
-		http.Error(w, fmt.Sprintf("Ошибка рендеринга: %s", err), http.StatusInternalServerError)
+		http.Error(w, fmt.Sprintf(`{"error": "Ошибка при рендеринге данных: %s"}`, err), http.StatusInternalServerError)
 	}
 }
