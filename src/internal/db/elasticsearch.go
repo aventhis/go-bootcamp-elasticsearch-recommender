@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/aventhis/go-bootcamp-elasticsearch-recommender/internal/types"
 	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"log"
 	"strings"
 )
@@ -13,6 +14,7 @@ import (
 type Store interface {
 	// returns a list of items, a total number of hits and (or) an error in case of one
 	GetPlaces(limit int, offset int) ([]types.Place, int, error)
+	Search(query string) (*esapi.Response, error)
 }
 
 type ElasticsearchStore struct {
@@ -99,4 +101,11 @@ func (es *ElasticsearchStore) GetPlaces(limit int, offset int) ([]types.Place, i
 		places = append(places, place)
 	}
 	return places, totalHits, nil
+}
+
+func (es *ElasticsearchStore) Search(query string) (*esapi.Response, error) {
+	return es.client.Search(
+		es.client.Search.WithIndex("places"),
+		es.client.Search.WithBody(strings.NewReader(query)),
+	)
 }

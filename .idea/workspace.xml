@@ -5,6 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="615302ba-b7bc-4deb-9683-d9a7174425fa" name="Changes" comment="add reccomendhandler">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/internal/db/elasticsearch.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/internal/db/elasticsearch.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/internal/handlers/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/internal/handlers/handler.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
