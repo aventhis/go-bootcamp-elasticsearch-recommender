@@ -74,16 +74,18 @@ func (h *Handler) IndexHandler(w http.ResponseWriter, r *http.Request) {
 		LastPage:    lastPage,
 	}
 
+	if page == lastPage {
+		data.NextPage = 0
+	}
+
 	tmpl, err := template.ParseFiles("../internal/data/index.html")
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Ошибка загрузки шаблона: %s", err), http.StatusInternalServerError)
 		return
 	}
-	//hh
+
 	err = tmpl.Execute(w, data)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Ошибка рендеринга: %s", err), http.StatusInternalServerError)
 	}
 }
-
-// убрать ссылку на next
