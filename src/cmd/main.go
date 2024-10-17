@@ -45,6 +45,8 @@ func main() {
 	http.HandleFunc("/api/places", handler.JSONHandler)
 	http.HandleFunc("/api/recommend", handler.RecommendHandler)
 	http.HandleFunc("/api/get_token", handler.GetTokenHandler)
+	// Применение JWT middleware для защищенных маршрутов
+	http.Handle("/api/secure/recommend", handler.JWTMiddleware(http.HandlerFunc(handler.RecommendHandler)))
 
 	log.Println("Сервер запущен на http://localhost:8888")
 	if err = http.ListenAndServe(":8888", nil); err != nil {

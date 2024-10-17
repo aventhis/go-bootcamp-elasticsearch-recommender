@@ -288,3 +288,37 @@ func (h *Handler) GetTokenHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.Write([]byte(`{"token": "` + tokenString + `"}`))
 }
+
+func (h *Handler) JWTMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Получаем токен из заголовка Authorization
+		authHaeder := r.Header.Get("Authorization")
+		if authHaeder == "" {
+			http.Error(w, "Токен не предоставлен", http.StatusUnauthorized)
+			return
+		}
+
+		// Проверяем, что токен начинается с "Bearer "
+		tokenString := ""
+		if len(authHaeder) > 7 && authHaeder[:7] == "Bearer " {
+			tokenString = authHaeder[7:]
+		} else {
+			http.Error(w, "Некорректный заголовок Authorization", http.StatusUnauthorized)
+			return
+		}
+
+		// Парсим токен
+		claims := &jwt.MapClaims{}
+		token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
+			return jwtKey, nil //// Используем секретный ключ для проверки подписи токена
+		})
+
+		// Проверка, является ли токен валидным
+		if err != nil || !token.Valid {
+			http.Error(w, "Недействительный токен", http.StatusUnauthorized)
+			return
+		}
+
+		next.ServeHTTP(w, r)
+	})
+}
