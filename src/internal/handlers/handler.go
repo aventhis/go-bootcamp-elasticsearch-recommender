@@ -5,14 +5,19 @@ import (
 	"fmt"
 	"github.com/aventhis/go-bootcamp-elasticsearch-recommender/internal/db"
 	"github.com/aventhis/go-bootcamp-elasticsearch-recommender/internal/types"
+	"github.com/golang-jwt/jwt/v4"
 	"html/template"
 	"net/http"
 	"strconv"
+	"time"
 )
 
 type Handler struct {
 	store db.Store
 }
+
+// секретный ключ для подписи токенов
+var jwtKey = []byte("my_secret_key")
 
 func NewHandler(store db.Store) *Handler {
 	return &Handler{store: store}
@@ -262,4 +267,24 @@ func (h *Handler) RecommendHandler(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewEncoder(w).Encode(data); err != nil {
 		http.Error(w, fmt.Sprintf("Ошибка при рендеринге данных: %s", err), http.StatusInternalServerError)
 	}
+}
+
+func (h *Handler) GetTokenHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	//Создание токена
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"admin": true,
+		"name":  "User",
+		"exp":   time.Now().Add(time.Hour * 24).Unix(),
+	})
+
+	//Подписание токена
+	tokenString, err := token.SignedString(jwtKey)
+	if err != nil {
+		http.Error(w, "Ошибка генерации токена", http.StatusInternalServerError)
+		return
+	}
+
+	w.Write([]byte(`{"token": "` + tokenString + `"}`))
 }
